@@ -116,7 +116,7 @@ class TimeZone
 
 	    $tz_list = [];
 	    foreach (static::$timezone_offsets as $timezone => $offset) {
-	        $tz_list[$timezone] = static::timezone_format($timezone, $offset/3600, $template);
+	        $tz_list[$timezone] = static::timezone_format($timezone, $offset, $template);
 	    }
 
 	    return $tz_list;
@@ -140,7 +140,7 @@ class TimeZone
         $offset_formatted = gmdate( 'H:i', abs($offset) );
 
 		return strtr($template, [
-			'{offset}' => abs($offset),
+			'{offset}' => abs($offset)/3600,
 			'{offset_prefix}' => $offset_prefix,
 			'{offset_formatted}' => $offset_formatted,
 			'{timezone}' => $timezone,
