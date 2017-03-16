@@ -1,5 +1,8 @@
 # Development roadmap
 
+## v0.0.3 (public static function timezone_format)
+
+
 ## v0.0.2 ({offset})
 
 

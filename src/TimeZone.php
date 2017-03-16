@@ -40,12 +40,18 @@ use DateTime;
  * $tzs = TimeZone::timezone_list();
  * ```
  *
- * Usecase #3: using output format template
+ * Usecase #3: using timezone list output format template
  *
  * ```php
  * $tzs = TimeZone::timezone_list(TimeZone::SORT_BY_OFFSET, '(GMT{offset_prefix}{offset_formatted}) {timezone}');
  * $tzs = TimeZone::timezone_list(TimeZone::SORT_BY_OFFSET, '(GMT{offset_prefix}{offset_formatted})');
  * $tzs = TimeZone::timezone_list(TimeZone::SORT_BY_OFFSET, '(UTC{offset_prefix}{offset}) - {timezone}');
+ * ```
+ *
+ * Usecase #4: using timezone output format template
+ *
+ * ```php
+ * echo TimeZone::timezone_format($timeZone)
  * ```
  *
  * @see http://stackoverflow.com/questions/1727077/generating-a-drop-down-list-of-timezones-with-php
@@ -76,10 +82,10 @@ class TimeZone
 	 * Gets timezone list.
 	 *
 	 * @param integer $sortFlag
-	 * @param string $formatTemplate
+	 * @param string $template
 	 * @return array
 	 */
-	public static function timezone_list($sortFlag = TimeZone::NO_SORT, $formatTemplate = '(UTC{offset_prefix}{offset_formatted}) - {timezone}')
+	public static function timezone_list($sortFlag = TimeZone::NO_SORT, $template = '(UTC{offset_prefix}{offset_formatted}) - {timezone}')
 	{
 	    if (empty(static::$timezones)) {
 		    foreach (static::$regions as $region) {
@@ -110,17 +116,34 @@ class TimeZone
 
 	    $tz_list = [];
 	    foreach (static::$timezone_offsets as $timezone => $offset) {
-	        $offset_prefix = $offset < 0 ? '-' : '+';
-	        $offset_formatted = gmdate( 'H:i', abs($offset) );
-
-			$tz_list[$timezone] = strtr($formatTemplate, [
-				'{offset}' => abs($offset/3600),
-				'{offset_prefix}' => $offset_prefix,
-				'{offset_formatted}' => $offset_formatted,
-				'{timezone}' => $timezone,
-			]);
+	        $tz_list[$timezone] = static::timezone_format($timezone, $offset/3600, $template);
 	    }
 
 	    return $tz_list;
+	}
+
+	/**
+	 * Formats timezone.
+	 *
+	 * @param string $timezone
+	 * @param string|null $offset
+	 * @param string $template
+	 * @return string
+	 */
+	public static function timezone_format($timezone, $offset = null, $template = '(UTC{offset_prefix}{offset_formatted}) - {timezone}')
+	{
+		if ($offset === null) {
+			$offset = (new DateTimeZone($timezone))->getOffset(new DateTime);
+		}
+
+        $offset_prefix = $offset < 0 ? '-' : '+';
+        $offset_formatted = gmdate( 'H:i', abs($offset) );
+
+		return strtr($template, [
+			'{offset}' => abs($offset),
+			'{offset_prefix}' => $offset_prefix,
+			'{offset_formatted}' => $offset_formatted,
+			'{timezone}' => $timezone,
+		]);
 	}
 }
