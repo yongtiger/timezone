@@ -18,7 +18,7 @@
     ],
     "homepage" : "http://www.branbook.cc",
     "require": {
-        "php": ">=5.5",
+        "php": ">=5.5"
     },
     "autoload": {
         "psr-4": {
