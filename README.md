@@ -1,4 +1,4 @@
-# Timezone v0.0.0 (initial commit)
+# Timezone v0.0.1 (sortFlag, formatTemplate)
 
 [![Latest Stable Version](https://poser.pugx.org/yongtiger/timezone/v/stable)](https://packagist.org/packages/yongtiger/timezone)
 [![Total Downloads](https://poser.pugx.org/yongtiger/timezone/downloads)](https://packagist.org/packages/yongtiger/timezone) 
