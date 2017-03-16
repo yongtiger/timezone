@@ -1,4 +1,4 @@
-# Timezone v0.0.1 (sortFlag, formatTemplate)
+# Timezone v0.0.2 ({offset})
 
 [![Latest Stable Version](https://poser.pugx.org/yongtiger/timezone/v/stable)](https://packagist.org/packages/yongtiger/timezone)
 [![Total Downloads](https://poser.pugx.org/yongtiger/timezone/downloads)](https://packagist.org/packages/yongtiger/timezone) 
@@ -40,6 +40,7 @@ $tzs = TimeZone::timezone_list();
 ```php
 $tzs = TimeZone::timezone_list(TimeZone::SORT_BY_OFFSET, '(GMT{offset_prefix}{offset_formatted}) {timezone}');
 $tzs = TimeZone::timezone_list(TimeZone::SORT_BY_OFFSET, '(GMT{offset_prefix}{offset_formatted})');
+$tzs = TimeZone::timezone_list(TimeZone::SORT_BY_OFFSET, '(UTC{offset_prefix}{offset}) - {timezone}');
 ```
 
 

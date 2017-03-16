@@ -45,6 +45,7 @@ use DateTime;
  * ```php
  * $tzs = TimeZone::timezone_list(TimeZone::SORT_BY_OFFSET, '(GMT{offset_prefix}{offset_formatted}) {timezone}');
  * $tzs = TimeZone::timezone_list(TimeZone::SORT_BY_OFFSET, '(GMT{offset_prefix}{offset_formatted})');
+ * $tzs = TimeZone::timezone_list(TimeZone::SORT_BY_OFFSET, '(UTC{offset_prefix}{offset}) - {timezone}');
  * ```
  *
  * @see http://stackoverflow.com/questions/1727077/generating-a-drop-down-list-of-timezones-with-php
@@ -113,6 +114,7 @@ class TimeZone
 	        $offset_formatted = gmdate( 'H:i', abs($offset) );
 
 			$tz_list[$timezone] = strtr($formatTemplate, [
+				'{offset}' => abs($offset/3600),
 				'{offset_prefix}' => $offset_prefix,
 				'{offset_formatted}' => $offset_formatted,
 				'{timezone}' => $timezone,

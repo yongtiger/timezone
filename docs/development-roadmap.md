@@ -1,5 +1,8 @@
 # Development roadmap
 
+## v0.0.2 ({offset})
+
+
 ## v0.0.1 (sortFlag, formatTemplate)
 
 
